@@ -1,0 +1,5 @@
+a="The quick brown fox jumps over the lazy dog"
+from string import ascii_lowercase
+
+if(set(ascii_lowercase)-set(a.lower())==set([])):
+  print("Yes")
