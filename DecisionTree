@@ -1,0 +1,291 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled2.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyM4J8OSpCVR+yYKnlJPIJOr",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/shreyal18ss/pyCodes/blob/master/DecisionTree\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "q-9E_jjEP-V8",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "import sklearn.datasets as datasets\n",
+        "\n",
+        "cancer = datasets.load_breast_cancer()\n",
+        "X_train, X_test, Y_train, Y_test = train_test_split(cancer.data, cancer.target,\n",
+        "           stratify=cancer.target,random_state=30)\n",
+        "dt_classifier = DecisionTreeClassifier()   \n",
+        "\n",
+        "dt_classifier = dt_classifier.fit(X_train, Y_train) "
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GmckUzpIQIBm",
+        "colab_type": "code",
+        "outputId": "12e4e9af-6b7f-49ae-eac6-2b0df267b9be",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 52
+        }
+      },
+      "source": [
+        "print('Accuracy of Train Data :', dt_classifier.score(X_train,Y_train))\n",
+        "\n",
+        "print('Accuracy of Test Data :', dt_classifier.score(X_test,Y_test))\n",
+        "#Overfitted"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Accuracy of Train Data : 1.0\n",
+            "Accuracy of Test Data : 0.9230769230769231\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2ZQ3_G0ARE6E",
+        "colab_type": "code",
+        "outputId": "3a7933a0-f456-451b-bc36-020089c7745f",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 52
+        }
+      },
+      "source": [
+        "#Fine Tuning the Model\n",
+        "dt_classifier = DecisionTreeClassifier(max_depth=2)   \n",
+        "\n",
+        "dt_classifier = dt_classifier.fit(X_train, Y_train) \n",
+        "\n",
+        "print('Accuracy of Train Data :', dt_classifier.score(X_train,Y_train))\n",
+        "\n",
+        "print('Accuracy of Test Data :', dt_classifier.score(X_test,Y_test))"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Accuracy of Train Data : 0.9647887323943662\n",
+            "Accuracy of Test Data : 0.9020979020979021\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zyOPfMMfRPmG",
+        "colab_type": "code",
+        "outputId": "d08a2d2b-2a80-4687-9daa-80693568db7a",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 52
+        }
+      },
+      "source": [
+        "from sklearn.tree import DecisionTreeRegressor\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "import sklearn.datasets as datasets\n",
+        "import numpy as np\n",
+        "np.random.seed(100)\n",
+        "\n",
+        "\n",
+        "boston = datasets.load_boston()\n",
+        "X_train, X_test, Y_train, Y_test = train_test_split(boston.data, boston.target,random_state=30)\n",
+        "\n",
+        "print(X_train.shape)\n",
+        "print(X_test.shape)\n"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "(379, 13)\n",
+            "(127, 13)\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "gUBGgDMZTEqJ",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "dt_reg = DecisionTreeRegressor()   \n",
+        "\n",
+        "dt_reg = dt_reg.fit(X_train, Y_train) "
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NWxev4oUT8Vf",
+        "colab_type": "code",
+        "outputId": "5618e903-f9e9-411d-cb13-03affc950fbd",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 52
+        }
+      },
+      "source": [
+        "\n",
+        "print('Accuracy of Train Data :', dt_reg.score(X_train,Y_train))\n",
+        "\n",
+        "print('Accuracy of Test Data :', dt_reg.score(X_test,Y_test))"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Accuracy of Train Data : 1.0\n",
+            "Accuracy of Test Data : 0.7038312015987166\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2xI_I-9KUXGy",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "value=dt_reg.predict(X_test[:2])"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9Ui1k-b4Uo_7",
+        "colab_type": "code",
+        "outputId": "16005615-7a4c-43f1-9aa4-e0ff3a6bef44",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "print(value)"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[18.2 13.9]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "WzzN_DUAUq2N",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 173
+        },
+        "outputId": "2c83949a-1032-463b-ac8b-596373353f17"
+      },
+      "source": [
+        "x=range(2,6)\n",
+        "max_i=0\n",
+        "max_i_val=0\n",
+        "for i in x:\n",
+        "#Fine Tuning the Model\n",
+        "  dt_classifier = DecisionTreeRegressor(max_depth=i)   \n",
+        "  dt_classifier = dt_classifier.fit(X_train, Y_train) \n",
+        "  y=dt_classifier.score(X_test,Y_test)\n",
+        "  # print(y)\n",
+        "  # print(i)\n",
+        "  if(y>max_i):\n",
+        "    max_i=y\n",
+        "    max_i_val=i\n",
+        "# print(max_i)\n",
+        "print(max_i_val)"
+      ],
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "0.6876109752166821\n",
+            "2\n",
+            "0.6962264524668583\n",
+            "3\n",
+            "0.7086640885662667\n",
+            "4\n",
+            "0.8153950242248211\n",
+            "5\n",
+            "5\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "e8W6kIU6CMBV",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    }
+  ]
+}
