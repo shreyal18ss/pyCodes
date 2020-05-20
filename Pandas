@@ -1,0 +1,1546 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled4.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "authorship_tag": "ABX9TyOhM0tze2OY8v67Otk4gpql",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/shreyal18ss/pyCodes/blob/master/Pandas\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "KWWvh0X0RI7C",
+        "colab_type": "code",
+        "outputId": "858e1aa1-e2b4-4d0d-c5de-d4938dc4a4f3",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 202
+        }
+      },
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "df = pd.DataFrame(np.random.rand(5,2))\n",
+        "df.index = [ 'row_' + str(i) for i in range(1, 6) ]\n",
+        "df"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "      <th>1</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>row_1</th>\n",
+              "      <td>0.547557</td>\n",
+              "      <td>0.686596</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>row_2</th>\n",
+              "      <td>0.343662</td>\n",
+              "      <td>0.908782</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>row_3</th>\n",
+              "      <td>0.772052</td>\n",
+              "      <td>0.981890</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>row_4</th>\n",
+              "      <td>0.095082</td>\n",
+              "      <td>0.895151</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>row_5</th>\n",
+              "      <td>0.625480</td>\n",
+              "      <td>0.480396</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "              0         1\n",
+              "row_1  0.547557  0.686596\n",
+              "row_2  0.343662  0.908782\n",
+              "row_3  0.772052  0.981890\n",
+              "row_4  0.095082  0.895151\n",
+              "row_5  0.625480  0.480396"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 28
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "3p8iRxKGRZoS",
+        "colab_type": "code",
+        "outputId": "59497990-3916-4314-d86d-2b578f137eeb",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 202
+        }
+      },
+      "source": [
+        "ufo=pd.read_csv('https://bit.ly/uforeports')\n",
+        "ufo.head()"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>City</th>\n",
+              "      <th>Colors Reported</th>\n",
+              "      <th>Shape Reported</th>\n",
+              "      <th>State</th>\n",
+              "      <th>Time</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Ithaca</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>TRIANGLE</td>\n",
+              "      <td>NY</td>\n",
+              "      <td>6/1/1930 22:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Willingboro</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>OTHER</td>\n",
+              "      <td>NJ</td>\n",
+              "      <td>6/30/1930 20:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Holyoke</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>OVAL</td>\n",
+              "      <td>CO</td>\n",
+              "      <td>2/15/1931 14:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Abilene</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>DISK</td>\n",
+              "      <td>KS</td>\n",
+              "      <td>6/1/1931 13:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>New York Worlds Fair</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>LIGHT</td>\n",
+              "      <td>NY</td>\n",
+              "      <td>4/18/1933 19:00</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "                   City Colors Reported Shape Reported State             Time\n",
+              "0                Ithaca             NaN       TRIANGLE    NY   6/1/1930 22:00\n",
+              "1           Willingboro             NaN          OTHER    NJ  6/30/1930 20:00\n",
+              "2               Holyoke             NaN           OVAL    CO  2/15/1931 14:00\n",
+              "3               Abilene             NaN           DISK    KS   6/1/1931 13:00\n",
+              "4  New York Worlds Fair             NaN          LIGHT    NY  4/18/1933 19:00"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 2
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Qf70umULSdSh",
+        "colab_type": "code",
+        "outputId": "13ea4099-42cc-416c-9cfb-77b1c29f3f69",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 121
+        }
+      },
+      "source": [
+        "ufo.dtypes"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "City               object\n",
+              "Colors Reported    object\n",
+              "Shape Reported     object\n",
+              "State              object\n",
+              "Time               object\n",
+              "dtype: object"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "nO9KIDN7Sr1R",
+        "colab_type": "code",
+        "outputId": "aed7c9cc-33ef-4c82-dab5-ef450313c7b2",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 121
+        }
+      },
+      "source": [
+        "ufo.Time.str.slice(-5,-3).astype(int).head()"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0    22\n",
+              "1    20\n",
+              "2    14\n",
+              "3    13\n",
+              "4    19\n",
+              "Name: Time, dtype: int64"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 6
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "-lPRzQFYS3ju",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "ufo['Time']=pd.to_datetime(ufo.Time)"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "z7KqKSMXTdbA",
+        "colab_type": "code",
+        "outputId": "a2eb407b-62fe-48e1-8902-f224b1a16a31",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 121
+        }
+      },
+      "source": [
+        "ufo.head()\n",
+        "ufo.dtypes"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "City                       object\n",
+              "Colors Reported            object\n",
+              "Shape Reported             object\n",
+              "State                      object\n",
+              "Time               datetime64[ns]\n",
+              "dtype: object"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ZZUG2L_3ThRR",
+        "colab_type": "code",
+        "outputId": "f9943aa9-bfe3-4862-8380-c9528aef49e7",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 225
+        }
+      },
+      "source": [
+        "ufo.Time.dt.hour"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0        22\n",
+              "1        20\n",
+              "2        14\n",
+              "3        13\n",
+              "4        19\n",
+              "         ..\n",
+              "18236    23\n",
+              "18237    23\n",
+              "18238    23\n",
+              "18239    23\n",
+              "18240    23\n",
+              "Name: Time, Length: 18241, dtype: int64"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "08NcoItrT1F2",
+        "colab_type": "code",
+        "outputId": "a30bd5d2-5aba-4437-d5df-3e3bab7664c2",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 225
+        }
+      },
+      "source": [
+        "ufo.Time.dt.dayofweek\n",
+        "#weekday_name"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0        6\n",
+              "1        0\n",
+              "2        6\n",
+              "3        0\n",
+              "4        1\n",
+              "        ..\n",
+              "18236    6\n",
+              "18237    6\n",
+              "18238    6\n",
+              "18239    6\n",
+              "18240    6\n",
+              "Name: Time, Length: 18241, dtype: int64"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QII2EJ6RT5L0",
+        "colab_type": "code",
+        "outputId": "65173556-63d5-41e4-81f1-0006f4eb8bb8",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "ts=pd.to_datetime('1/1/1999')\n",
+        "ts"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Timestamp('1999-01-01 00:00:00')"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "sXaYBqTdUvbM",
+        "colab_type": "code",
+        "outputId": "5158f509-408b-4fd9-a13b-bc7f0436d39a",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 415
+        }
+      },
+      "source": [
+        "ufo.loc[ufo.Time>ts]"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>City</th>\n",
+              "      <th>Colors Reported</th>\n",
+              "      <th>Shape Reported</th>\n",
+              "      <th>State</th>\n",
+              "      <th>Time</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>12832</th>\n",
+              "      <td>Loma Rica</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>LIGHT</td>\n",
+              "      <td>CA</td>\n",
+              "      <td>1999-01-01 02:30:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12833</th>\n",
+              "      <td>Bauxite</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>AR</td>\n",
+              "      <td>1999-01-01 03:00:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12834</th>\n",
+              "      <td>Florence</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>CYLINDER</td>\n",
+              "      <td>SC</td>\n",
+              "      <td>1999-01-01 14:00:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12835</th>\n",
+              "      <td>Lake Henshaw</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>CIGAR</td>\n",
+              "      <td>CA</td>\n",
+              "      <td>1999-01-01 15:00:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12836</th>\n",
+              "      <td>Wilmington Island</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>LIGHT</td>\n",
+              "      <td>GA</td>\n",
+              "      <td>1999-01-01 17:15:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18236</th>\n",
+              "      <td>Grant Park</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>TRIANGLE</td>\n",
+              "      <td>IL</td>\n",
+              "      <td>2000-12-31 23:00:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18237</th>\n",
+              "      <td>Spirit Lake</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>DISK</td>\n",
+              "      <td>IA</td>\n",
+              "      <td>2000-12-31 23:00:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18238</th>\n",
+              "      <td>Eagle River</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>WI</td>\n",
+              "      <td>2000-12-31 23:45:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18239</th>\n",
+              "      <td>Eagle River</td>\n",
+              "      <td>RED</td>\n",
+              "      <td>LIGHT</td>\n",
+              "      <td>WI</td>\n",
+              "      <td>2000-12-31 23:45:00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18240</th>\n",
+              "      <td>Ybor</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>OVAL</td>\n",
+              "      <td>FL</td>\n",
+              "      <td>2000-12-31 23:59:00</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>5409 rows × 5 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "                    City Colors Reported  ... State                Time\n",
+              "12832          Loma Rica             NaN  ...    CA 1999-01-01 02:30:00\n",
+              "12833            Bauxite             NaN  ...    AR 1999-01-01 03:00:00\n",
+              "12834           Florence             NaN  ...    SC 1999-01-01 14:00:00\n",
+              "12835       Lake Henshaw             NaN  ...    CA 1999-01-01 15:00:00\n",
+              "12836  Wilmington Island             NaN  ...    GA 1999-01-01 17:15:00\n",
+              "...                  ...             ...  ...   ...                 ...\n",
+              "18236         Grant Park             NaN  ...    IL 2000-12-31 23:00:00\n",
+              "18237        Spirit Lake             NaN  ...    IA 2000-12-31 23:00:00\n",
+              "18238        Eagle River             NaN  ...    WI 2000-12-31 23:45:00\n",
+              "18239        Eagle River             RED  ...    WI 2000-12-31 23:45:00\n",
+              "18240               Ybor             NaN  ...    FL 2000-12-31 23:59:00\n",
+              "\n",
+              "[5409 rows x 5 columns]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 20
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "3DuDC06vUzis",
+        "colab_type": "code",
+        "outputId": "677e5d03-4542-4a63-a5ad-2de5d5bed021",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "(ufo.Time.max() - ufo.Time.min()).days"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "25781"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 23
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "8wPHphPSVGy9",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#df.set_index(['city','rank'], drop=False)\n"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "3Zn7OzfptpEu",
+        "colab_type": "code",
+        "outputId": "34088e52-afa0-42ba-dd8d-75926cc0b0ef",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 52
+        }
+      },
+      "source": [
+        "import pandas as pd\n",
+        "dates=pd.date_range(start='1-Sep-2017',end='15-Sep-2017')\n",
+        "print(dates[2])\n",
+        "print(dates.dtype)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "2017-09-03 00:00:00\n",
+            "datetime64[ns]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "kADC5HiOuIRk",
+        "colab_type": "code",
+        "outputId": "7e292265-bf4a-48ba-e27a-a4eb918f6ceb",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "datelist = ['14-Sep-2017', '9-Sep-2017']\n",
+        "dates_to_be_searched=pd.to_datetime(datelist)\n",
+        "print(dates_to_be_searched)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "DatetimeIndex(['2017-09-14', '2017-09-09'], dtype='datetime64[ns]', freq=None)\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "GHJv5gTRuhS5",
+        "colab_type": "code",
+        "outputId": "82b0ffff-7807-4cea-8605-439da426d0a1",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "print(dates_to_be_searched.isin(dates))"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[ True  True]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "fCcp5sSou8yV",
+        "colab_type": "code",
+        "outputId": "ad4ae4d6-5443-48b6-e597-9d3dbbcc59e0",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "arraylist = [['classA']*5 + ['classB']*5, ['s1', 's2', 's3','s4', 's5']*2]\n",
+        "# arraylist\n",
+        "myindex = pd.MultiIndex.from_arrays(arraylist)\n",
+        "print(myindex.levels)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "FrozenList([['classA', 'classB'], ['s1', 's2', 's3', 's4', 's5']])"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "tUvbv6l0vf5s",
+        "colab_type": "code",
+        "outputId": "c3222ffb-7be6-427f-9531-8be9ea32e5f4",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 69
+        }
+      },
+      "source": [
+        "d = pd.date_range('11-Sep-2017', '17-Sep-2017', freq='2D')\n",
+        "d + pd.Timedelta('1 days 2 hours')"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "DatetimeIndex(['2017-09-12 02:00:00', '2017-09-14 02:00:00',\n",
+              "               '2017-09-16 02:00:00', '2017-09-18 02:00:00'],\n",
+              "              dtype='datetime64[ns]', freq='2D')"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "suPIxkG8v74p",
+        "colab_type": "code",
+        "outputId": "05bf95ae-88a6-494a-bede-1eae4fcd1cb3",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "\n",
+        "d = pd.date_range('11-Sep-2017', '17-Sep-2017', freq='2D')\n",
+        "len(d[d.isin(pd.to_datetime(['12-09-2017', '15-09-2017']))])\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "1"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "cBuGCAcGwIf_",
+        "colab_type": "code",
+        "outputId": "d4aae977-6f0d-4d82-cb2a-611d5f7d6776",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        }
+      },
+      "source": [
+        "pd.bdate_range('11-Sep-2017', '17-Sep-2017', freq='2D')\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "DatetimeIndex(['2017-09-11', '2017-09-13', '2017-09-15', '2017-09-17'], dtype='datetime64[ns]', freq='2D')"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "eaGSCXG2wPe0",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#df['A'].isnull()"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zbqnttNBOLNw",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# missing_values['n/a','na','--']\n",
+        "# df=pd.read_csv(\"xyz.csv\",na_values=missing_values)\n",
+        "# df['A'].isnull()"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "IvWgqgUEOwcS",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# cnt=0\n",
+        "# for row in df['A']:\n",
+        "#   try:\n",
+        "#     int(row)\n",
+        "#     df.loc[cnt,'A']=np.nan\n",
+        "#   except ValueError:\n",
+        "#     pass\n",
+        "#   cnt+=1\n",
+        "# df['A'].isnull()\n"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Mg7i86RVPaNr",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# df.isnull.sum()\n",
+        "# df.isnull.values.any()\n",
+        "# df.isnull.sum().sum()"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NZkWBoH4QPs2",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# df['A'].fillna(125,inplace=True)\n",
+        "# df.loc(2,'A')=125\n",
+        "# df['A'].fillna(df['A'].mean(),inplace=True)\n"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_JW_lyzIRMd3",
+        "colab_type": "code",
+        "outputId": "ae5e06aa-0263-496e-c1b1-28c3cc4911e7",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 202
+        }
+      },
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "heights_A = pd.Series([176.2, 158.4, 167.6, 156.2, 161.4], index = ['s1', 's2', 's3', 's4', 's5'])\n",
+        "weights_A = pd.Series([85.1, 90.2, 76.8, 80.4, 78.9], index = ['s1', 's2', 's3', 's4', 's5'])\n",
+        "# print(heights_A,end = \"\\n\")\n",
+        "# print(weights_A,end = \"\\n\")\n",
+        "\n",
+        "df_A = pd.DataFrame(list(zip(heights_A,weights_A)), index = ['s1', 's2', 's3', 's4', 's5'], columns = ['Student_height', 'Student_weight'] )\n",
+        "df_A\n",
+        "# # print(df_A,end = \"\\n\")\n",
+        "# # df_A\n",
+        "# df_A.loc['s3']=np.nan\n",
+        "# # df_A\n",
+        "# df_A.loc[['s5'],['Student_weight']]=np.nan\n",
+        "# # df_A\n",
+        "# df_A2=df_A.dropna()\n",
+        "# print(df_A2)\n",
+        "# df_A2['Student_height']"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Student_height</th>\n",
+              "      <th>Student_weight</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>s1</th>\n",
+              "      <td>176.2</td>\n",
+              "      <td>85.1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>s2</th>\n",
+              "      <td>158.4</td>\n",
+              "      <td>90.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>s3</th>\n",
+              "      <td>167.6</td>\n",
+              "      <td>76.8</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>s4</th>\n",
+              "      <td>156.2</td>\n",
+              "      <td>80.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>s5</th>\n",
+              "      <td>161.4</td>\n",
+              "      <td>78.9</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "    Student_height  Student_weight\n",
+              "s1           176.2            85.1\n",
+              "s2           158.4            90.2\n",
+              "s3           167.6            76.8\n",
+              "s4           156.2            80.4\n",
+              "s5           161.4            78.9"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 1
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "5drJ0tQ6RZo3",
+        "colab_type": "code",
+        "outputId": "432805a9-2f9d-4805-d1a7-065f4ef51bb9",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 69
+        }
+      },
+      "source": [
+        "df_A_filter1=df_A[(df_A.Student_height>160) & (df_A['Student_weight']<80)]\n",
+        "print(df_A_filter1)\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "    Student_height  Student_weight\n",
+            "s3           167.6            76.8\n",
+            "s5           161.4            78.9\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "TDTna4IJi0xW",
+        "colab_type": "code",
+        "outputId": "431a3f70-f333-46ad-d432-0531a9a0722d",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 79
+        }
+      },
+      "source": [
+        "df_A_filter2=(df_A[df_A.index.str.endswith('5',na=False)])\n",
+        "df_A_filter2\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Student_height</th>\n",
+              "      <th>Student_weight</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>s5</th>\n",
+              "      <td>161.4</td>\n",
+              "      <td>78.9</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "    Student_height  Student_weight\n",
+              "s5           161.4            78.9"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 55
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6cKlMsgwkhpW",
+        "colab_type": "code",
+        "outputId": "acb097ed-d996-4cd8-d8d3-ea0b3a157046",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 87
+        }
+      },
+      "source": [
+        "df_A['Gender'] = ['M', 'F', 'M', 'M', 'F']\n",
+        "df_groups=df_A.groupby(df_A.Gender)\n",
+        "# df_groups\n",
+        "print(df_groups.mean())\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "        Student_height  Student_weight\n",
+            "Gender                                \n",
+            "F           159.900000       84.550000\n",
+            "M           166.666667       80.766667\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "drdA4iwKR5jr",
+        "colab_type": "code",
+        "outputId": "a8722daa-1b46-4e78-defb-dfaede42b5f0",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 69
+        }
+      },
+      "source": [
+        "df = pd.DataFrame({'temp':pd.Series(28 + 10*np.random.randn(10)),\n",
+        "                   'rain':pd.Series(100 + 50*np.random.randn(10)),\n",
+        "                   'location':list('AAAAABBBBB')\n",
+        "})\n",
+        "print(df.head(2))"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "        temp        rain location\n",
+            "0  43.154486  112.617882        A\n",
+            "1  32.146122   79.529918        A\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "O-r5lk-BiypN",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "LfSD5LxVSZkK",
+        "colab_type": "code",
+        "outputId": "e071eefe-af11-4622-8224-9df736888713",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 69
+        }
+      },
+      "source": [
+        "replacements = {\n",
+        "'location': {'A':'Hyderabad', 'B':'Mumbai'}\n",
+        "}\n",
+        "df = df.replace(replacements, regex=True)\n",
+        "print(df.head(2))"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "        temp        rain   location\n",
+            "0  43.154486  112.617882  Hyderabad\n",
+            "1  32.146122   79.529918  Hyderabad\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "AnNcVxXOTjAv",
+        "colab_type": "code",
+        "outputId": "a8005136-f718-4230-8f84-87aba9837d63",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 69
+        }
+      },
+      "source": [
+        "mumbai_data = df.loc[df.location.str.contains('umb'),:]\n",
+        "\n",
+        "print(mumbai_data.head(2))\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "        temp        rain location\n",
+            "5  30.474388  239.574905   Mumbai\n",
+            "6  28.127446  168.699226   Mumbai\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ZHViL_F4ghnD",
+        "colab_type": "code",
+        "outputId": "c0f0f847-4b93-4ec9-82ad-f684d7eb1e99",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 87
+        }
+      },
+      "source": [
+        "regions = df.groupby('location')\n",
+        "print(regions.mean())\n"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "                temp        rain\n",
+            "location                        \n",
+            "Hyderabad  31.449408  128.328543\n",
+            "Mumbai     28.890962  160.201643\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "hTXk4VKmgnAU",
+        "colab_type": "code",
+        "outputId": "fe5fe6d5-d7cc-4e83-b7c6-59920cf8440b",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 139
+        }
+      },
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "heights_A = pd.Series([176.2, 158.4, 167.6, 156.2, 161.4], index = ['s1', 's2', 's3', 's4', 's5'])\n",
+        "weights_A = pd.Series([85.1, 90.2, 76.8, 80.4, 78.9], index = ['s1', 's2', 's3', 's4', 's5'])\n",
+        "# print(heights_A,end = \"\\n\")\n",
+        "# print(weights_A,end = \"\\n\")\n",
+        "\n",
+        "df_A = pd.DataFrame(list(zip(heights_A,weights_A)), index = ['s1', 's2', 's3', 's4', 's5'], columns = ['Student_height', 'Student_weight'] )\n",
+        "\n",
+        "df_A['Gender'] = ['M', 'F', 'M', 'M', 'F']\n",
+        "s=pd.Series([165.4, 82.7, 'F'], index=['Student_height', 'Student_weight', 'Gender'], name='s6')\n",
+        "df_AA=df_A.append(s)\n",
+        "print(df_AA)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "    Student_height  Student_weight Gender\n",
+            "s1           176.2            85.1      M\n",
+            "s2           158.4            90.2      F\n",
+            "s3           167.6            76.8      M\n",
+            "s4           156.2            80.4      M\n",
+            "s5           161.4            78.9      F\n",
+            "s6           165.4            82.7      F\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "dDAf0p30H0Df",
+        "colab_type": "code",
+        "outputId": "3f23d292-f38e-4d82-fecb-6abe0e3b5f85",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 235
+        }
+      },
+      "source": [
+        "np.random.seed=100\n",
+        "heights_B =pd.Series(np.random.normal(loc=170 ,scale=25 , size=5), index = ['s1', 's2', 's3', 's4', 's5'])\n",
+        "np.random.seed=100\n",
+        "weights_B  =pd.Series(np.random.normal(loc=75 ,scale=12 , size=5), index = ['s1', 's2', 's3', 's4', 's5'])\n",
+        "df_B=pd.DataFrame(list(zip(heights_B,weights_B)),index = [ 's7', 's8', 's9', 's10', 's11'], columns = ['Student_height', 'Student_weight'] )\n",
+        "df_B['Gender']=['F', 'M', 'F', 'F', 'M']\n",
+        "df=pd.concat([df_AA,df_B],axis=1, join='inner')\n",
+        "print(df)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "TypeError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-16-0479312a26f5>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrandom\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mseed\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m100\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mheights_B\u001b[0m \u001b[0;34m=\u001b[0m\u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mSeries\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrandom\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnormal\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mloc\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m170\u001b[0m \u001b[0;34m,\u001b[0m\u001b[0mscale\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m25\u001b[0m \u001b[0;34m,\u001b[0m \u001b[0msize\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mindex\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m's1'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's2'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's3'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's4'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's5'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrandom\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mseed\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m100\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0mweights_B\u001b[0m  \u001b[0;34m=\u001b[0m\u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mSeries\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrandom\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnormal\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mloc\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m75\u001b[0m \u001b[0;34m,\u001b[0m\u001b[0mscale\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m12\u001b[0m \u001b[0;34m,\u001b[0m \u001b[0msize\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mindex\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m's1'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's2'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's3'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's4'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's5'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mdf_B\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mpd\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mDataFrame\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlist\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mzip\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mheights_B\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0mweights_B\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0mindex\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m \u001b[0;34m's7'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's8'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's9'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's10'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m's11'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcolumns\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m'Student_height'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'Student_weight'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mTypeError\u001b[0m: 'int' object is not callable"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NYKgOWOHL6cI",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 104
+        },
+        "outputId": "4dd65a1b-a65d-4a7b-a3b0-3f1416e5a0bc"
+      },
+      "source": [
+        "nameid = pd.Series(range(101, 111))\n",
+        "name = pd.Series(['person' + str(i) for i in range(1, 11)])\n",
+        "master =pd.DataFrame(list(zip(nameid,name)),columns = ['nameid', 'name'] )\n",
+        "transaction = pd.DataFrame({'nameid':[108, 108, 108,103], 'product':['iPhone', 'Nokia', 'Micromax', 'Vivo']})\n",
+        "mdf=master.merge(transaction,on='nameid')\n",
+        "print(mdf)"
+      ],
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "   nameid     name   product\n",
+            "0     103  person3      Vivo\n",
+            "1     108  person8    iPhone\n",
+            "2     108  person8     Nokia\n",
+            "3     108  person8  Micromax\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "6P9U5cG9QZxa",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "7cc84baf-0615-4b94-a535-c7f76fb2d447"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "data = [{'a': 1, 'b': 2}, {'a': 5, 'b': 10, 'c': 20}]\n",
+        "df = pd.DataFrame(data, columns=['a', 'b'])\n",
+        "# del df['a']\n",
+        "df.shape"
+      ],
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(2, 2)"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 32
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "8U6zGbMEQ-O5",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "e598b4e7-527c-4642-8469-90a027a30de8"
+      },
+      "source": [
+        "x=pd.period_range('11-Sep-2017', '17-Sep-2017', freq='M')\n",
+        "len(x)"
+      ],
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "1"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 31
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4S-zwlTmSKs6",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "outputId": "114f966a-0a1f-46ab-e42f-53419171b1ba"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "data = [{'a': 1, 'b': 2}, {'a': 5, 'b': 10, 'c': 20}]\n",
+        "df = pd.DataFrame(data)\n",
+        "df.shape"
+      ],
+      "execution_count": 35,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(2, 3)"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 35
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "qv7pTWKZSS83",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    }
+  ]
+}
